@@ -17,9 +17,9 @@ public class DetailFragment extends Fragment {
     public static String MOVIE_PARAM = "movie";
 
     private Movie movie;
-
     private TextView textViewTitle;
     private TextView textViewScore;
+
 
     public static DetailFragment newInstance(Movie movie) {
         DetailFragment fragment = new DetailFragment();

@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:text="search"
         android:id="@+id/search_button"
-        android:layout_alignBottom="@+id/editText"
+        android:layout_alignRight="@+id/searchedMovieEditText"
         android:layout_alignParentEnd="true" />
 
     <ListView
