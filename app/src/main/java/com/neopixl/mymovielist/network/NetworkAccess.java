@@ -30,16 +30,18 @@ public class NetworkAccess {
                     @Override
                     public void onResponse(MovieResultsJSON movieResultsJSON) {
                         //Use or store the object UserSession
-                        System.out.println("Nombres de films : "+movieResultsJSON.getTotal_results());
-                        ArrayList<MovieJSON> results = movieResultsJSON.getResults();
+                        System.out.println("Nombres de pages : "+movieResultsJSON.getTotal_pages());
+                        for(int i=1; i < movieResultsJSON.getTotal_pages(); i++) {
+                            movieResultsJSON.setPage(i);
+                            ArrayList<MovieJSON> results = movieResultsJSON.getResults();
 
-                        int min = 0; int max = results.size();
-                        System.out.println("Nombres de films : "+results.size());
-                        Random rand = new Random();
-                        int randomNumber = rand.nextInt(max - min + 1) + min;
-                        MovieJSON randomMovie = results.get(randomNumber);
-                        System.out.println("Nombre aleatoire : "+randomNumber);
-                        System.out.println("Titre du film : "+randomMovie.getTitle());
+                            System.out.println("films : "+results);
+                            MovieJSON film = results.get(0);
+                            System.out.println("Titre du film : "+film.getTitle());
+
+                            results.clear();
+                        }
+
 
                         /* for(int i=0; i < movieResultsJSON.getTotal_results(); i++) {
                             // System.out.println("AFFICHAGE que je veux : "+results);
@@ -76,14 +78,18 @@ public class NetworkAccess {
                     public void onResponse(MovieResultsJSON movieResultsJSON) {
                         //Use or store the object UserSession
 
-                        int min = 0; int max = movieResultsJSON.getTotal_results();
+                        ArrayList<MovieJSON> results = movieResultsJSON.getResults();
+
+                        int min = 0; int max = results.size();
                         Random rand = new Random();
                         int randomNumber = rand.nextInt(max - min + 1) + min;
+                        MovieJSON randomMovie = results.get(randomNumber);
+                        System.out.println("Nombre aleatoire : "+randomNumber);
+                        System.out.println("Titre du film : "+randomMovie.getTitle());
+                        System.out.println("Poster du film : " + randomMovie.getPoster_path());
 
-                        System.out.println("AFFICHAGE que je veux : "+movieResultsJSON);
-
-                        Intent intent = new Intent("searchResultsEvent");
-                        intent.putExtra("movieResults", movieResultsJSON);
+                        Intent intent = new Intent("DisplayRandomMovie");
+                        intent.putExtra("randomMovieResult", randomMovie);
 
                         LocalBroadcastManager.getInstance(MyApp.getInstance().getApplicationContext()).sendBroadcast(intent);
                     }

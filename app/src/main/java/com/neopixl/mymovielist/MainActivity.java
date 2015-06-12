@@ -59,6 +59,8 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     public void pushRandomMovie(View view) {
         Intent intent = new Intent(this, DisplayRandomMovie.class);
         startActivity(intent);
+
+        NetworkAccess.searchMovie(editTextTitle.getText().toString());
     }
 
 
@@ -76,6 +78,8 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 
         receiver =  new SearchResultReceiver();
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter("searchResultsEvent"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter("DisplayRandomMovie"));
+
     }
 
     @Override
