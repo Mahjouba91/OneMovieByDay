@@ -9,6 +9,14 @@
     tools:context=".MainActivity"
     android:id="@+id/container">
 
+    <Button
+        android:id="@+id/ActivityMain_ButtonRandomMovies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Random Movies"
+        android:onClick="pushRandomMovie"
+        />
+
     <TextView
         android:id="@+id/ActivityMain_TextViewTitle"
         android:layout_width="wrap_content"
@@ -36,6 +44,14 @@
         android:layout_toRightOf="@id/ActivityMain_TextViewScore"/>
 
     <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="test"
+        android:id="@+id/testButton"
+        android:layout_above="@+id/ActivityMain_ListViewMovies"
+        android:layout_toEndOf="@+id/ActivityMain_EditTextScore" />
+
+    <Button
         android:id="@+id/ActivityMain_ButtonSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -51,12 +67,5 @@
 
         </ListView>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="test"
-        android:id="@+id/testButton"
-        android:layout_above="@+id/ActivityMain_ListViewMovies"
-        android:layout_toEndOf="@+id/ActivityMain_EditTextScore" />
 
 </RelativeLayout>

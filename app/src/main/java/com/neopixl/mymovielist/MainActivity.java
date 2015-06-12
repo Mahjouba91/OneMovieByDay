@@ -56,6 +56,10 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         });
     }
 
+    public void pushRandomMovie(View view) {
+        Intent intent = new Intent(this, DisplayRandomMovie.class);
+        startActivity(intent);
+    }
 
 
     @Override

@@ -7,5 +7,7 @@
     <string name="mainActivityLabelTitle">Titre du film :</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_search">SearchActivity</string>
+    <string name="title_activity_display_random_movie">DisplayRandomMovie</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

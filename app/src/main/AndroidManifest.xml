@@ -23,6 +23,14 @@
             android:name=".SearchActivity"
             android:label="@string/title_activity_search" >
         </activity>
+        <activity
+            android:name=".DisplayRandomMovie"
+            android:label="@string/title_activity_display_random_movie"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.neopixl.mymovielist.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
