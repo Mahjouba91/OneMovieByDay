@@ -1,6 +1,7 @@
 package com.neopixl.mymovielist.network;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v4.content.LocalBroadcastManager;
 
 import com.android.volley.Request;
@@ -89,7 +90,7 @@ public class NetworkAccess {
                         System.out.println("Poster du film : " + randomMovie.getPoster_path());
 
                         Intent intent = new Intent("DisplayRandomMovie");
-                        intent.putExtra("randomMovieResult", randomMovie);
+                        intent.putExtra("randomMovieResult", (Parcelable) randomMovie);
 
                         LocalBroadcastManager.getInstance(MyApp.getInstance().getApplicationContext()).sendBroadcast(intent);
                     }
