@@ -21,8 +21,11 @@ import android.widget.ListView;
 import com.neopixl.mymovielist.Adapter.MovieAdapter;
 import com.neopixl.mymovielist.Fragment.DetailFragment;
 import com.neopixl.mymovielist.Model.Movie;
+import com.neopixl.mymovielist.Model.MovieJSON;
 import com.neopixl.mymovielist.Model.MovieResultsJSON;
 import com.neopixl.mymovielist.network.NetworkAccess;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -35,7 +38,10 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     private MovieAdapter adapter;
     private Button buttonSave;
 
+    private Text randomMovie;
+
     private SearchResultReceiver receiver;
+    private displayRandomMovieReceiver displayRandomMovieEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,6 +178,18 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
             System.out.println("received results");
             MovieResultsJSON resultsJSON = (MovieResultsJSON)intent.getSerializableExtra("movieResults");
             adapter.setMovieList(resultsJSON.getResults());
+
+        }
+    }
+
+    class displayRandomMovieReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            MovieJSON randomMovie = (MovieJSON)intent.getSerializableExtra("randomMovieResult");
+            System.out.println("received random movie : " + randomMovie.getTitle());
+
+            // adapter.setMovieList(randomMovie.getResults());
 
         }
     }
