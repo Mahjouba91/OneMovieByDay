@@ -13,14 +13,15 @@
         android:id="@+id/ActivityMain_ButtonRandomMovies"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Random Movies"
+        android:text="Random Movie"
         />
 
     <TextView
         android:id="@+id/ActivityMain_TextViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/mainActivityLabelTitle"/>
+        android:text="@string/mainActivityLabelTitle"
+        android:layout_below="@id/ActivityMain_ButtonRandomMovies"/>
 
     <EditText
         android:id="@+id/ActivityMain_EditTextTitle"
@@ -65,6 +66,5 @@
         android:layout_below="@id/ActivityMain_ButtonSave">
 
         </ListView>
-
 
 </RelativeLayout>

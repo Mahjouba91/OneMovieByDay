@@ -2,6 +2,7 @@ package com.neopixl.mymovielist;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -20,6 +21,7 @@ import android.widget.ListView;
 
 import com.neopixl.mymovielist.Adapter.MovieAdapter;
 import com.neopixl.mymovielist.Fragment.DetailFragment;
+import com.neopixl.mymovielist.Fragment.MovieFragment;
 import com.neopixl.mymovielist.Model.Movie;
 import com.neopixl.mymovielist.Model.MovieJSON;
 import com.neopixl.mymovielist.Model.MovieResultsJSON;
@@ -65,8 +67,6 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         randomMovieButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                System.out.println("On Click Random Movie : ");
                 NetworkAccess.searchRandomMovie();
             }
         });
@@ -188,7 +188,6 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
             System.out.println("received results");
             MovieResultsJSON resultsJSON = (MovieResultsJSON)intent.getSerializableExtra("movieResults");
             adapter.setMovieList(resultsJSON.getResults());
-
         }
     }
 
@@ -196,6 +195,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 
         @Override
         public void onReceive(Context context, Intent intent) {
+            System.out.println("received the best populates movies to take one randomnly");
             MovieResultsJSON resultsJSON = (MovieResultsJSON)intent.getSerializableExtra("randomMovieResult");
 
             // Take the results
@@ -209,18 +209,19 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
             // Select the random movie
             MovieJSON randomMovie = results.get(randomNumber);
             System.out.println("Nombre aleatoire : "+randomNumber);
-            System.out.println("Titre du film : "+randomMovie.getTitle());
+            System.out.println("Titre du film : " + randomMovie.getTitle());
             System.out.println("Poster du film : https://image.tmdb.org/t/p/original" + randomMovie.getPoster_path());
 
             // Créer un fragment pour afficher les détails d'un film : http://zestedesavoir.com/tutoriels/278/aller-plus-loin-dans-le-developpement-android/323/fragmenter-vos-projets/1795/fragment/
+            MovieFragment movieFragment = MovieFragment.newInstance(randomMovie);
 
-            DetailFragment detailFragment = DetailFragment.newInstance(randomMovie);
-            //start a new Fragment transaction.
-            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-            //add the new detailFragment to the transaction in container "container" and add it to the backstack.
-            fragmentTransaction.add(R.id.container, detailFragment).addToBackStack(null);
-            //commit the transaction.
-            fragmentTransaction.commit();
+            // Begin a fragment transaction.
+            final FragmentManager fm = getFragmentManager();
+            final FragmentTransaction ft = fm.beginTransaction();
+
+            // Replace current fragment by the new one.
+            ft.replace(R.id.container, movieFragment).addToBackStack(null);
+            ft.commit();
 
         }
     }

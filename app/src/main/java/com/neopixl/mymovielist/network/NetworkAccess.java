@@ -60,8 +60,6 @@ public class NetworkAccess {
 
                         Intent intent = new Intent("randomMovieEvent");
                         intent.putExtra("randomMovieResult", movieResultsJSON);
-
-                        System.out.println("On New Intent : Random Movie : ");
                         LocalBroadcastManager.getInstance(MyApp.getInstance().getApplicationContext()).sendBroadcast(intent);
                     }
                 }, new Response.ErrorListener() {

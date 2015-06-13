@@ -7,8 +7,10 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.koushikdutta.ion.Ion;
 import com.neopixl.mymovielist.Model.MovieJSON;
 import com.neopixl.mymovielist.R;
 
@@ -17,9 +19,10 @@ public class MovieFragment extends Fragment {
 
     private MovieJSON movie;
     private TextView textViewTitle;
+    private ImageView imageViewPoster;
     private TextView textViewScore;
 
-    public static MovieFragment newInstance(String param1, String param2) {
+    public static MovieFragment newInstance(MovieJSON movie) {
         MovieFragment fragment = new MovieFragment();
         Bundle args = new Bundle();
         args.putParcelable(MOVIE_PARAM, movie);
@@ -47,6 +50,7 @@ public class MovieFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_movie, container, false);
         textViewTitle = (TextView)rootView.findViewById(R.id.FragmentMovie_TextViewTitle);
         textViewScore = (TextView)rootView.findViewById(R.id.FragmentMovie_TextViewScore);
+        imageViewPoster = (ImageView)rootView.findViewById(R.id.FragmentMovie_ImageViewPoster);
         return rootView;    }
 
     @Override
@@ -55,7 +59,8 @@ public class MovieFragment extends Fragment {
         if(movie!=null)
         {
             textViewTitle.setText(movie.getTitle());
-            textViewScore.setText(String.format("%.2f",movie.getVote_average()));
+            textViewScore.setText(String.format("%.2f", movie.getVote_average()));
+            Ion.with(imageViewPoster).load("https://image.tmdb.org/t/p/original" + movie.getPoster_path());
         }
     }
 }
