@@ -89,8 +89,8 @@ public class NetworkAccess {
                         System.out.println("Titre du film : "+randomMovie.getTitle());
                         System.out.println("Poster du film : " + randomMovie.getPoster_path());
 
-                        Intent intent = new Intent("DisplayRandomMovie");
-                        intent.putExtra("randomMovieResult", (Parcelable) randomMovie);
+                        Intent intent = new Intent("displayRandomMovieEvent");
+                        intent.putExtra("randomMovieResult", randomMovie);
 
                         LocalBroadcastManager.getInstance(MyApp.getInstance().getApplicationContext()).sendBroadcast(intent);
                     }
