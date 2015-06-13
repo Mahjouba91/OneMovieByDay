@@ -27,7 +27,9 @@ import com.neopixl.mymovielist.network.NetworkAccess;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 public class MainActivity extends Activity implements View.OnClickListener, AdapterView.OnItemClickListener {
@@ -41,7 +43,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     private Text randomMovie;
 
     private SearchResultReceiver receiver;
-    private displayRandomMovieReceiver displayRandomMovieEvent;
+    private displayRandomMovieReceiver randomMovieReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +62,19 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
                 NetworkAccess.searchMovie(editTextTitle.getText().toString());
             }
         });
+
+        Button randomMovieButton = (Button)findViewById(R.id.ActivityMain_ButtonRandomMovies);
+        randomMovieButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NetworkAccess.searchRandomMovie();
+            }
+        });
     }
 
     public void pushRandomMovie(View view) {
         Intent intent = new Intent(this, DisplayRandomMovie.class);
         startActivity(intent);
-
-        NetworkAccess.searchMovie(editTextTitle.getText().toString());
     }
 
 
@@ -82,9 +90,10 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         //add this class as OnItemClickListener.
         this.listViewMovies.setOnItemClickListener(this);
 
-        receiver =  new SearchResultReceiver();
+        receiver = new SearchResultReceiver();
+        randomMovieReceiver = new displayRandomMovieReceiver();
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter("searchResultsEvent"));
-        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter("DisplayRandomMovie"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(randomMovieReceiver, new IntentFilter("displayRandomMovieEvent"));
 
     }
 
@@ -186,8 +195,21 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            MovieJSON randomMovie = (MovieJSON)intent.getSerializableExtra("randomMovieResult");
-            System.out.println("received random movie : " + randomMovie.getTitle());
+            MovieResultsJSON resultsJSON = (MovieResultsJSON)intent.getSerializableExtra("randomMovieResult");
+
+            // Take the results
+            ArrayList<MovieJSON> results = resultsJSON.getResults();
+
+            // Do a random number between 0 and 20
+            int min = 0; int max = results.size();
+            Random rand = new Random();
+            int randomNumber = rand.nextInt(max - min + 1) + min;
+
+            // Select the random movie
+            MovieJSON randomMovie = results.get(randomNumber);
+            System.out.println("Nombre aleatoire : "+randomNumber);
+            System.out.println("Titre du film : "+randomMovie.getTitle());
+            System.out.println("Poster du film : " + randomMovie.getPoster_path());
 
             // adapter.setMovieList(randomMovie.getResults());
 
