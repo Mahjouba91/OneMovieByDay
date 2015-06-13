@@ -40,10 +40,8 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     private MovieAdapter adapter;
     private Button buttonSave;
 
-    private Text randomMovie;
-
     private SearchResultReceiver receiver;
-    private displayRandomMovieReceiver randomMovieReceiver;
+    private RandomMovieReceiver randomMovieReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,15 +65,17 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         randomMovieButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                System.out.println("On Click Random Movie : ");
                 NetworkAccess.searchRandomMovie();
             }
         });
     }
 
-    public void pushRandomMovie(View view) {
+    /*public void pushRandomMovie(View view) {
         Intent intent = new Intent(this, DisplayRandomMovie.class);
         startActivity(intent);
-    }
+    }*/
 
 
     @Override
@@ -91,9 +91,10 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         this.listViewMovies.setOnItemClickListener(this);
 
         receiver = new SearchResultReceiver();
-        randomMovieReceiver = new displayRandomMovieReceiver();
+        randomMovieReceiver = new RandomMovieReceiver();
+
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter("searchResultsEvent"));
-        LocalBroadcastManager.getInstance(this).registerReceiver(randomMovieReceiver, new IntentFilter("displayRandomMovieEvent"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(randomMovieReceiver, new IntentFilter("randomMovieEvent"));
 
     }
 
@@ -123,7 +124,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 
     @Override
     public void onClick(View v) {
-        //verifi if the caller is the buttonSave
+        //verify if the caller is the buttonSave
         if(v == buttonSave)
         {
             //verify if the title and score are not empty.
@@ -191,7 +192,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         }
     }
 
-    class displayRandomMovieReceiver extends BroadcastReceiver {
+    class RandomMovieReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -200,8 +201,8 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
             // Take the results
             ArrayList<MovieJSON> results = resultsJSON.getResults();
 
-            // Do a random number between 0 and 20
-            int min = 0; int max = results.size();
+            // Do a random number between 0 and 19
+            int min = 0; int max = results.size()-1;
             Random rand = new Random();
             int randomNumber = rand.nextInt(max - min + 1) + min;
 
@@ -209,9 +210,17 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
             MovieJSON randomMovie = results.get(randomNumber);
             System.out.println("Nombre aleatoire : "+randomNumber);
             System.out.println("Titre du film : "+randomMovie.getTitle());
-            System.out.println("Poster du film : " + randomMovie.getPoster_path());
+            System.out.println("Poster du film : https://image.tmdb.org/t/p/original" + randomMovie.getPoster_path());
 
-            // adapter.setMovieList(randomMovie.getResults());
+            // Créer un fragment pour afficher les détails d'un film : http://zestedesavoir.com/tutoriels/278/aller-plus-loin-dans-le-developpement-android/323/fragmenter-vos-projets/1795/fragment/
+
+            DetailFragment detailFragment = DetailFragment.newInstance(randomMovie);
+            //start a new Fragment transaction.
+            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+            //add the new detailFragment to the transaction in container "container" and add it to the backstack.
+            fragmentTransaction.add(R.id.container, detailFragment).addToBackStack(null);
+            //commit the transaction.
+            fragmentTransaction.commit();
 
         }
     }
