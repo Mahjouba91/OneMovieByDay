@@ -210,6 +210,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
             MovieJSON randomMovie = results.get(randomNumber);
             System.out.println("Nombre aleatoire : "+randomNumber);
             System.out.println("Titre du film : " + randomMovie.getTitle());
+            System.out.println("Synopsys du film : " + randomMovie.getOverview());
             System.out.println("Poster du film : https://image.tmdb.org/t/p/original" + randomMovie.getPoster_path());
 
             // Créer un fragment pour afficher les détails d'un film : http://zestedesavoir.com/tutoriels/278/aller-plus-loin-dans-le-developpement-android/323/fragmenter-vos-projets/1795/fragment/

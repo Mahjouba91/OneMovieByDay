@@ -49,7 +49,7 @@ public class NetworkAccess {
     }
 
     public static void searchRandomMovie(){
-
+        // String url = "http://api.themoviedb.org/3/search/movie?api_key=588df436490dd63ffeaaaa8747eda2a2&query="+movie;
         String url = "http://api.themoviedb.org/3/discover/movie?api_key=588df436490dd63ffeaaaa8747eda2a2";
 
         JacksonRequest<MovieResultsJSON> request = new

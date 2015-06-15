@@ -7,10 +7,12 @@ import android.os.Parcelable;
  * Created by fdewasmes on 21/05/15.
  */
 public class MovieJSON implements Parcelable {
-    private String title;
-    private Float vote_average;
-    private int vote_count;
-    private String poster_path;
+    private String title; // Titre du film
+    private Float vote_average; // Note moyenne
+    private int vote_count; // Nombre de notes
+    private String poster_path; // Image du film
+    private String overview; // Synopsys
+    private int id; // ID du film dans l'API
 
     public MovieJSON() {
     }
@@ -47,15 +49,32 @@ public class MovieJSON implements Parcelable {
         this.poster_path = poster_path;
     }
 
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public int describeContents() {
-        return title.hashCode()+poster_path.hashCode()+vote_average.hashCode();
+        return title.hashCode()+poster_path.hashCode()+vote_average.hashCode()+overview.hashCode();
     }
 
     public void writeToParcel(Parcel out, int flags) {
         out.writeString(title);
         out.writeString(poster_path);
         out.writeFloat(vote_average);
+        out.writeString(overview);
     }
 
     public static final Parcelable.Creator<MovieJSON> CREATOR
@@ -73,5 +92,6 @@ public class MovieJSON implements Parcelable {
         title = in.readString();
         poster_path = in.readString();
         vote_average = in.readFloat();
+        overview = in.readString();
     }
 }
