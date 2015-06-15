@@ -23,7 +23,7 @@ public class NetworkAccess {
 
     public static void searchMovie(String movie){
 
-        String url = "http://api.themoviedb.org/3/search/movie?api_key=588df436490dd63ffeaaaa8747eda2a2&query="+movie;
+        String url = "http://api.themoviedb.org/3/search/movie?api_key=588df436490dd63ffeaaaa8747eda2a2&language=fr&query="+movie;
 
         JacksonRequest<MovieResultsJSON> request = new
                 JacksonRequest<MovieResultsJSON>(Request.Method.GET, url, MovieResultsJSON.class,
@@ -50,7 +50,7 @@ public class NetworkAccess {
 
     public static void searchRandomMovie(){
         // String url = "http://api.themoviedb.org/3/search/movie?api_key=588df436490dd63ffeaaaa8747eda2a2&query="+movie;
-        String url = "http://api.themoviedb.org/3/discover/movie?api_key=588df436490dd63ffeaaaa8747eda2a2";
+        String url = "http://api.themoviedb.org/3/discover/movie?api_key=588df436490dd63ffeaaaa8747eda2a2&language=fr";
 
         JacksonRequest<MovieResultsJSON> request = new
                 JacksonRequest<MovieResultsJSON>(Request.Method.GET, url, MovieResultsJSON.class,

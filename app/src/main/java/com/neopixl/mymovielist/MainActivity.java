@@ -43,7 +43,6 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     private Button buttonSave;
 
     private SearchResultReceiver receiver;
-    private RandomMovieReceiver randomMovieReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +66,8 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         randomMovieButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NetworkAccess.searchRandomMovie();
+                Intent intent = new Intent(MainActivity.this, DisplayRandomMovie.class);
+                startActivity(intent);
             }
         });
     }
@@ -91,10 +91,8 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         this.listViewMovies.setOnItemClickListener(this);
 
         receiver = new SearchResultReceiver();
-        randomMovieReceiver = new RandomMovieReceiver();
 
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter("searchResultsEvent"));
-        LocalBroadcastManager.getInstance(this).registerReceiver(randomMovieReceiver, new IntentFilter("randomMovieEvent"));
 
     }
 
@@ -191,39 +189,4 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         }
     }
 
-    class RandomMovieReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            System.out.println("received the best populates movies to take one randomnly");
-            MovieResultsJSON resultsJSON = (MovieResultsJSON)intent.getSerializableExtra("randomMovieResult");
-
-            // Take the results
-            ArrayList<MovieJSON> results = resultsJSON.getResults();
-
-            // Do a random number between 0 and 19
-            int min = 0; int max = results.size()-1;
-            Random rand = new Random();
-            int randomNumber = rand.nextInt(max - min + 1) + min;
-
-            // Select the random movie
-            MovieJSON randomMovie = results.get(randomNumber);
-            System.out.println("Nombre aleatoire : "+randomNumber);
-            System.out.println("Titre du film : " + randomMovie.getTitle());
-            System.out.println("Synopsys du film : " + randomMovie.getOverview());
-            System.out.println("Poster du film : https://image.tmdb.org/t/p/original" + randomMovie.getPoster_path());
-
-            // Créer un fragment pour afficher les détails d'un film : http://zestedesavoir.com/tutoriels/278/aller-plus-loin-dans-le-developpement-android/323/fragmenter-vos-projets/1795/fragment/
-            MovieFragment movieFragment = MovieFragment.newInstance(randomMovie);
-
-            // Begin a fragment transaction.
-            final FragmentManager fm = getFragmentManager();
-            final FragmentTransaction ft = fm.beginTransaction();
-
-            // Replace current fragment by the new one.
-            ft.replace(R.id.container, movieFragment).addToBackStack(null);
-            ft.commit();
-
-        }
-    }
 }
