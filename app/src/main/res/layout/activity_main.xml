@@ -1,62 +1,57 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity"
-    android:id="@+id/container">
+    android:background="#FFFF">
 
-    <TextView
-        android:id="@+id/ActivityMain_TextViewTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/mainActivityLabelTitle"/>
-
-    <EditText
-        android:id="@+id/ActivityMain_EditTextTitle"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ActivityMain_TextViewTitle"/>
+        android:layout_weight="0.5"
+        android:gravity="center_vertical|center_horizontal"
+    >
 
-    <TextView
-        android:id="@+id/ActivityMain_TextViewScore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ActivityMain_EditTextTitle"
-        android:text="Score :"/>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Je souhaite un film au hasard."
+            android:textColor="#111"
+            android:gravity="center"/>
 
-    <EditText
-        android:id="@+id/ActivityMain_EditTextScore"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ActivityMain_EditTextTitle"
-        android:layout_toRightOf="@id/ActivityMain_TextViewScore"/>
+        <RadioButton
+            android:id="@+id/radioRandomMovie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:layout_margin="10dp"
+            android:buttonTint="@color/your_color"
+            android:layout_gravity="center_horizontal" />
 
-    <Button
-        android:id="@+id/ActivityMain_ButtonSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ActivityMain_EditTextTitle"
-        android:layout_alignParentRight="true"
-        android:text="Save"/>
+    </LinearLayout>
 
-    <ListView
-        android:id="@+id/ActivityMain_ListViewMovies"
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/ActivityMain_ButtonSave">
-
-        </ListView>
-
-    <Button
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="test"
-        android:id="@+id/testButton"
-        android:layout_above="@+id/ActivityMain_ListViewMovies"
-        android:layout_toEndOf="@+id/ActivityMain_EditTextScore" />
+        android:layout_weight="0.5"
+        android:gravity="center_vertical|center_horizontal">
 
-</RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Je choisis mes préférences."
+            android:textColor="#111" />
+
+        <RadioButton
+            android:id="@+id/radioPreferedMovie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:layout_margin="10dp"
+            android:buttonTint="@color/your_color"/>
+
+    </LinearLayout>
+
+</LinearLayout>
