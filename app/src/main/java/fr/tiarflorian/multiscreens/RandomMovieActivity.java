@@ -1,18 +1,19 @@
 package fr.tiarflorian.multiscreens;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Resources;
 import android.support.v4.content.LocalBroadcastManager;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.ShareActionProvider;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.koushikdutta.ion.Ion;
 import fr.tiarflorian.multiscreens.Model.MovieJSON;
@@ -21,15 +22,12 @@ import fr.tiarflorian.multiscreens.network.NetworkAccess;
 import java.util.ArrayList;
 import java.util.Random;
 
-import java.util.ArrayList;
-import java.util.Random;
-
-
 public class RandomMovieActivity extends ActionBarActivity {
     final String EXTRA_WHAT_INTENT = "intent_name"; // action
     final String EXTRA_GENRE = "movie_genre"; // action
     final String EXTRA_RELEASE_DATE_GTE = "movie_release_date_gte"; // exemple : 2005, format date : YYYY-MM-DD
     final String EXTRA_RELEASE_DATE_LTE = "movie_release_date_lte"; // exemple : 2010, format date : YYYY-MM-DD
+    int movie_id;
 
     private RandomMovieReceiver randomMovieReceiver;
     private FilteredMovieReceiver filteredMovieReceiver;
@@ -42,6 +40,8 @@ public class RandomMovieActivity extends ActionBarActivity {
     private int id_genre;
     private String first_year;
     private String last_year;
+
+    private ShareActionProvider mShareActionProvider;
 
 
     @Override
@@ -113,6 +113,9 @@ public class RandomMovieActivity extends ActionBarActivity {
             score.setText(String.format("%.2f", randomMovie.getVote_average()));
             overview.setText(randomMovie.getOverview());
             Ion.with(poster).load("https://image.tmdb.org/t/p/original" + randomMovie.getPoster_path());
+
+            movie_id = randomMovie.getId();
+
         }
     }
 
@@ -146,11 +149,26 @@ public class RandomMovieActivity extends ActionBarActivity {
         }
     }
 
+    // Call to update the share intent
+    private void setShareIntent(Intent shareIntent) {
+        if (mShareActionProvider != null) {
+            mShareActionProvider.setShareIntent(shareIntent);
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_random_movie, menu);
+
+        // Locate MenuItem with ShareActionProvider
+        MenuItem item = menu.findItem(R.id.menu_item_share);
+
+        mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
+
+        // Return true to display menu
         return true;
+
     }
 
     @Override
@@ -162,6 +180,21 @@ public class RandomMovieActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+        if (id == R.id.menu_item_share) {
+            Intent sendIntent = new Intent();
+
+            title = (TextView) findViewById(R.id.RandomMovie_TextViewTitle);
+            String movie_title = title.getText().toString();
+
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Movie Discover");
+            sendIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.discover_movie)+" \"" + movie_title + "\"\n\nhttps://www.themoviedb.org/movie/"+movie_id);
+            sendIntent.setType("text/plain");
+            startActivity(sendIntent);
+
+            setShareIntent(sendIntent);
             return true;
         }
 

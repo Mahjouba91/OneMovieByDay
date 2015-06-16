@@ -6,6 +6,7 @@
     <string name="title_activity_date">Période du film</string>
     <string name="title_activity_random_movie">Le Film</string>
     <string name="spinner_toast">Vous avez sélectionné la période : </string>
+    <string name="discover_movie">Découvrez le film</string>
 
     <string-array name="date_array">
         <item>2010-2015</item>

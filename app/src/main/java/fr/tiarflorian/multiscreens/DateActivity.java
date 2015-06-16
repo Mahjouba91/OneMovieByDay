@@ -34,7 +34,6 @@ public class DateActivity extends ActionBarActivity  {
 
         Intent currentIntent = getIntent();
         if (currentIntent != null) {
-
             genre = currentIntent.getIntExtra(EXTRA_GENRE, 12);
         }
 
