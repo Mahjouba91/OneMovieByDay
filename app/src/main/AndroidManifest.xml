@@ -37,11 +37,7 @@
         </activity>
         <activity
             android:name=".RandomMovieActivity"
-            android:label="@string/title_activity_random_movie"
-            android:parentActivityName=".MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="fr.tiarflorian.multiscreens.MainActivity" />
+            android:label="@string/title_activity_random_movie" >
         </activity>
     </application>
 
