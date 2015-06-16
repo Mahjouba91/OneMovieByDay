@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFF">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Genres"
+            android:gravity="center"
+            android:textColor="#111111"
+            android:fontFamily="sans-serif"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_centerHorizontal="true" />
+
+
+    </RelativeLayout>
+
+    <!-- Menu -->
+
+    <!-- IMAGE BUTTONS -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:weightSum="1"
+        android:paddingTop="30dp">
+
+        <ImageButton
+            android:id="@+id/action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/explosion_2"
+            android:background="#00000000"
+            android:layout_weight="0.20"
+            android:minWidth="60dp" />
+
+        <ImageButton
+            android:id="@+id/aventure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/aventure_2"
+            android:background="#00000000"
+            android:layout_weight="0.20"
+            android:minWidth="60dp"  />
+
+        <ImageButton
+            android:id="@+id/animation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/animation_2"
+            android:background="#00000000"
+            android:layout_weight="0.20"
+            android:minWidth="60dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:paddingTop="10dp"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Action"
+            android:textColor="#000000"
+            android:layout_weight="0.20"
+            android:gravity="center_horizontal"
+            android:width="60dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Aventure"
+            android:textColor="#000000"
+            android:layout_weight="0.20"
+            android:gravity="center_horizontal"
+            android:width="60dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Animation"
+            android:textColor="#000000"
+            android:layout_weight="0.20"
+            android:gravity="center_horizontal"
+            android:width="60dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:weightSum="1"
+        android:paddingTop="20dp">
+
+        <ImageButton
+            android:id="@+id/comedie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/rire"
+            android:background="#00000000"
+            android:layout_weight="0.20"
+            android:minWidth="60dp" />
+
+        <ImageButton
+            android:id="@+id/documentaire"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/apprendre"
+            android:background="#00000000"
+            android:layout_weight="0.20"
+            android:minWidth="60dp" />
+
+        <ImageButton
+            android:id="@+id/romance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/romance"
+            android:background="#00000000"
+            android:layout_weight="0.20"
+            android:minWidth="60dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:paddingTop="10dp"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Comédie"
+            android:textColor="#000000"
+            android:layout_weight="0.20"
+            android:gravity="center_horizontal"
+            android:width="60dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Documentaire"
+            android:textColor="#000000"
+            android:layout_weight="0.20"
+            android:gravity="center_horizontal"
+            android:width="60dp"
+            android:minWidth="60dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Romance"
+            android:textColor="#000000"
+            android:layout_weight="0.20"
+            android:gravity="center_horizontal"
+            android:width="60dp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:weightSum="1"
+        android:paddingTop="25dp">
+
+        <ImageButton
+            android:id="@+id/fantasy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/fantasy"
+            android:background="#00000000"
+            android:layout_weight="0.20"
+            android:minWidth="60dp" />
+
+        <ImageButton
+            android:id="@+id/war"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/medieval"
+            android:background="#00000000"
+            android:layout_weight="0.20"
+            android:minWidth="60dp" />
+
+        <ImageButton
+            android:id="@+id/history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/legion"
+            android:background="#00000000"
+            android:layout_weight="0.20"
+            android:minWidth="60dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:paddingTop="10dp"
+        android:gravity="center" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fantastique"
+            android:textColor="#000000"
+            android:layout_weight="0.20"
+            android:gravity="center_horizontal"
+            android:width="60dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Guerre"
+            android:textColor="#000000"
+            android:layout_weight="0.20"
+            android:gravity="center_horizontal"
+            android:width="60dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Historique"
+            android:textColor="#000000"
+            android:layout_weight="0.20"
+            android:gravity="center_horizontal"
+            android:width="60dp"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:weightSum="1"
+        android:paddingTop="25dp">
+
+        <ImageButton
+            android:id="@+id/scifi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/sifi"
+            android:background="#00000000"
+            android:layout_weight="0.20"
+            android:minWidth="60dp" />
+
+        <ImageButton
+            android:id="@+id/western"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/western"
+            android:background="#00000000"
+            android:layout_weight="0.20"
+            android:minWidth="60dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:paddingTop="10dp"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sience-fiction"
+            android:textColor="#000000"
+            android:layout_weight="0.20"
+            android:gravity="center_horizontal"
+            android:width="60dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Western"
+            android:textColor="#000000"
+            android:layout_weight="0.20"
+            android:gravity="center_horizontal"
+            android:width="60dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>
