@@ -29,18 +29,26 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/RandomMovie_TextViewScore" />
 
-    <TextView
-        android:id="@+id/RandomMovie_Runtime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:textIsSelectable="true" />
 
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/scrollView"
-        android:layout_below="@id/RandomMovie_Runtime" >
+        android:layout_below="@id/RandomMovie_ImageViewPoster" >
+
+        <TextView
+            android:id="@+id/RandomMovie_Runtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textIsSelectable="true" />
+    </ScrollView>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView2"
+        android:layout_below="@id/scrollView" >
 
         <TextView
             android:id="@+id/RandomMovie_Overview"
