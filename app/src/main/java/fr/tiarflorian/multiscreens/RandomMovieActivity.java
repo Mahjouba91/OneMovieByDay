@@ -71,9 +71,6 @@ public class RandomMovieActivity extends ActionBarActivity {
 
                 // On souhaite un film aléatoire compris dans les 20 premiÃ¨res pages de rÃ©sultats soit 400 films possible
                 NetworkAccess.searchRandomMovie(randomNumber);
-                if (movie_id != 0) {
-                    NetworkAccess.searchMovieById(movie_id);
-                }
             }
             // If the user want to filter the movie
             else if(lastActivity.equals("DateActivity")) {
@@ -90,9 +87,6 @@ public class RandomMovieActivity extends ActionBarActivity {
 
                 // On cherche un film selon nos préférences
                 NetworkAccess.searchFilteredMovie(id_genre, first_year, last_year);
-                if (movie_id != 0) {
-                    NetworkAccess.searchMovieById(movie_id);
-                }
             }
             else {
                 System.out.println("Salut toi !!");
@@ -126,10 +120,11 @@ public class RandomMovieActivity extends ActionBarActivity {
 
             title.setText(randomMovie.getTitle());
             score.setText("Note : "+String.format("%.2f", randomMovie.getVote_average())+"/10");
-            overview.setText("Synopsys "+randomMovie.getOverview());
+            overview.setText("Synopsys : "+randomMovie.getOverview());
             Ion.with(poster).load("https://image.tmdb.org/t/p/original" + randomMovie.getPoster_path());
 
             movie_id = randomMovie.getId();
+            NetworkAccess.searchMovieById(movie_id);
 
         }
     }
@@ -159,8 +154,12 @@ public class RandomMovieActivity extends ActionBarActivity {
 
             title.setText(randomMovie.getTitle());
             score.setText("Note : "+String.format("%.2f", randomMovie.getVote_average())+"/10");
-            overview.setText("Synopsys " + randomMovie.getOverview());
+            overview.setText("Synopsys : " + randomMovie.getOverview());
             Ion.with(poster).load("https://image.tmdb.org/t/p/original" + randomMovie.getPoster_path());
+
+            movie_id = randomMovie.getId();
+            NetworkAccess.searchMovieById(movie_id);
+
         }
     }
 
@@ -173,8 +172,11 @@ public class RandomMovieActivity extends ActionBarActivity {
 
             title = (TextView) findViewById(R.id.RandomMovie_TextViewTitle);
 
-            title.setText(resultJSON.getRuntime());
-            title.setText(resultJSON.getReleaseDate());
+            System.out.println(" Runtime : "+resultJSON.getRuntime());
+            System.out.println(" Release Date : "+resultJSON.getReleaseDate());
+
+//            title.setText(resultJSON.getRuntime());
+//            title.setText(resultJSON.getReleaseDate());
         }
     }
 
