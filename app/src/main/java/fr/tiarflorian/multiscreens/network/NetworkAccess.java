@@ -7,11 +7,14 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.navercorp.volleyextensions.request.JacksonRequest;
+
+import fr.tiarflorian.multiscreens.Model.MovieIdJSON;
 import fr.tiarflorian.multiscreens.Model.MovieResultsJSON;
 import fr.tiarflorian.multiscreens.MyApp;
 
 /**
  * Created by fdewasmes on 21/05/15.
+ * Edited by Florian TIAR on 17/06/15.
  */
 public class NetworkAccess {
 

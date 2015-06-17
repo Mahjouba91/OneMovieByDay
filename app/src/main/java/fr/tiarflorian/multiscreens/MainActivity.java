@@ -21,24 +21,27 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final RadioButton randomMovieButton = (RadioButton) findViewById(R.id.radioRandomMovie);
+        final RadioButton radioRandomMovieButton = (RadioButton) findViewById(R.id.radioRandomMovie);
         final RadioButton radioPreferedMovieButton = (RadioButton) findViewById(R.id.radioPreferedMovie);
 
-        randomMovieButton.setOnClickListener(new View.OnClickListener() {
-
+        radioRandomMovieButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, RandomMovieActivity.class);
                 intent.putExtra(EXTRA_WHAT_INTENT, "MainActivity"); // Action
                 startActivity(intent);
+                radioPreferedMovieButton.setChecked(false);
+                radioRandomMovieButton.setChecked(false);
             }
         });
-        radioPreferedMovieButton.setOnClickListener(new View.OnClickListener() {
 
+        radioPreferedMovieButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, GenreActivity.class);
-                    startActivity(intent);
+                Intent intent = new Intent(MainActivity.this, GenreActivity.class);
+                startActivity(intent);
+                radioRandomMovieButton.setChecked(false);
+                radioPreferedMovieButton.setChecked(false);
             }
         });
     }

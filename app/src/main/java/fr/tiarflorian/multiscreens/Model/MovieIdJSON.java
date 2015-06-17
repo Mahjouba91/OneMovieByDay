@@ -1,10 +1,12 @@
 package fr.tiarflorian.multiscreens.Model;
 
 
+import java.io.Serializable;
+
 /**
  * Created by Florian TIAR on 17/06/15.
  */
-public class MovieIdJSON {
+public class MovieIdJSON implements Serializable {
     private String title; // Titre du film
     private Float vote_average; // Note moyenne
     private int vote_count; // Nombre de notes
@@ -16,11 +18,11 @@ public class MovieIdJSON {
     public MovieIdJSON() {
     }
 
-    public String getRuntime() {
+    public int getRuntime() {
         return runtime;
     }
 
-    public void setRuntime(String runtime) {
+    public void setRuntime(int runtime) {
         this.runtime = runtime;
     }
 
