@@ -13,6 +13,7 @@ public class MovieJSON implements Parcelable {
     private String poster_path; // Image du film
     private String overview; // Synopsys
     private int id; // ID du film dans l'API
+    private String release_date;
 
     public MovieJSON() {
     }
@@ -64,6 +65,15 @@ public class MovieJSON implements Parcelable {
     public void setId(int id) {
         this.id = id;
     }
+
+    public String getReleaseDate() {
+        return release_date;
+    }
+
+    public void setReleaseDate(String release_date) {
+        this.release_date = release_date;
+    }
+
 
     @Override
     public int describeContents() {

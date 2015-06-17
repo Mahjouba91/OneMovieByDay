@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import com.koushikdutta.ion.Ion;
 
+import org.w3c.dom.Text;
+
 import fr.tiarflorian.multiscreens.Model.MovieIdJSON;
 import fr.tiarflorian.multiscreens.Model.MovieJSON;
 import fr.tiarflorian.multiscreens.Model.MovieResultsJSON;
@@ -39,6 +41,7 @@ public class RandomMovieActivity extends ActionBarActivity {
     private TextView title;
     private TextView score;
     private TextView overview;
+    private TextView runtimeView;
     private ImageView poster;
 
     private int id_genre;
@@ -120,7 +123,7 @@ public class RandomMovieActivity extends ActionBarActivity {
 
             title.setText(randomMovie.getTitle());
             score.setText("Note : "+String.format("%.2f", randomMovie.getVote_average())+"/10");
-            overview.setText("Synopsys : "+randomMovie.getOverview());
+            overview.setText("Synopsys : " + randomMovie.getOverview());
             Ion.with(poster).load("https://image.tmdb.org/t/p/original" + randomMovie.getPoster_path());
 
             movie_id = randomMovie.getId();
@@ -153,7 +156,7 @@ public class RandomMovieActivity extends ActionBarActivity {
             poster = (ImageView) findViewById(R.id.RandomMovie_ImageViewPoster);
 
             title.setText(randomMovie.getTitle());
-            score.setText("Note : "+String.format("%.2f", randomMovie.getVote_average())+"/10");
+            score.setText("Note : "+String.format("%.2f", randomMovie.getVote_average()) + "/10");
             overview.setText("Synopsys : " + randomMovie.getOverview());
             Ion.with(poster).load("https://image.tmdb.org/t/p/original" + randomMovie.getPoster_path());
 
@@ -170,13 +173,13 @@ public class RandomMovieActivity extends ActionBarActivity {
             System.out.println("received a movie according to its ID");
             MovieIdJSON resultJSON = (MovieIdJSON)intent.getSerializableExtra("idMovieResult");
 
-            title = (TextView) findViewById(R.id.RandomMovie_TextViewTitle);
+            int runtime  = resultJSON.getRuntime();
+            int hours = runtime / 60; //since both are ints, you get an int
+            int minutes = runtime % 60;
 
-            System.out.println(" Runtime : "+resultJSON.getRuntime());
-            System.out.println(" Release Date : "+resultJSON.getReleaseDate());
+            runtimeView = (TextView) findViewById(R.id.RandomMovie_Runtime);
 
-//            title.setText(resultJSON.getRuntime());
-//            title.setText(resultJSON.getReleaseDate());
+            runtimeView.setText("Durée : "+hours+"h"+minutes);
         }
     }
 

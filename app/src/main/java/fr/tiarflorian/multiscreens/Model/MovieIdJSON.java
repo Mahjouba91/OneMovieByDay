@@ -13,25 +13,17 @@ public class MovieIdJSON implements Serializable {
     private String poster_path; // Image du film
     private String overview; // Synopsys
     private int runtime; // Durée du film
-    private String release_date;
 
     public MovieIdJSON() {
     }
 
     public int getRuntime() {
         return runtime;
+
     }
 
     public void setRuntime(int runtime) {
         this.runtime = runtime;
-    }
-
-    public String getReleaseDate() {
-        return release_date;
-    }
-
-    public void setReleaseDate(String release_date) {
-        this.release_date = release_date;
     }
 
     public String getTitle() {
