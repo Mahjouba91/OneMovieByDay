@@ -52,12 +52,9 @@ public class RandomMovieActivity extends ActionBarActivity {
         Intent currentIntent = getIntent();
         if (currentIntent != null) {
             // If the user want a random movie
-            System.out.println("WTF");
-            System.out.println(currentIntent.getStringExtra(EXTRA_WHAT_INTENT));
 
             final String lastActivity = currentIntent.getStringExtra(EXTRA_WHAT_INTENT);
             if (lastActivity.equals("MainActivity")) {
-                System.out.println("Bienvenue dans mon main");
                 randomMovieReceiver = new RandomMovieReceiver();
                 LocalBroadcastManager.getInstance(this).registerReceiver(randomMovieReceiver, new IntentFilter("randomMovieEvent"));
 
@@ -65,12 +62,11 @@ public class RandomMovieActivity extends ActionBarActivity {
                 Random rand = new Random();
                 int randomNumber = rand.nextInt(max - min + 1) + min;
 
-                // On souhaite un film aléatoire compris dans les 20 premières pages de résultats soit 400 films possible
+                // On souhaite un film al�atoire compris dans les 20 premières pages de résultats soit 400 films possible
                 NetworkAccess.searchRandomMovie(randomNumber);
             }
             // If the user want to filter the movie
             else if(lastActivity.equals("DateActivity")) {
-                System.out.println("Bienvenue dans mon date");
                 filteredMovieReceiver = new FilteredMovieReceiver();
                 LocalBroadcastManager.getInstance(this).registerReceiver(filteredMovieReceiver, new IntentFilter("filteredMovieEvent"));
 
