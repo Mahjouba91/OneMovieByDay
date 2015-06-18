@@ -60,6 +60,7 @@ public class RandomMovieActivity extends ActionBarActivity {
 
         Intent currentIntent = getIntent();
         if (currentIntent != null) {
+            // On prépare le receiver quand on cherche un film par son ID
             idMovieReceiver = new IdMovieReceiver();
             LocalBroadcastManager.getInstance(this).registerReceiver(idMovieReceiver, new IntentFilter("idMovieEvent"));
 
@@ -72,16 +73,17 @@ public class RandomMovieActivity extends ActionBarActivity {
 
                 int min = 0; int max = 19;
                 Random rand = new Random();
-                int randomNumber = rand.nextInt(max - min + 1) + min;
+                int randomPage = rand.nextInt(max - min + 1) + min;
 
                 // On souhaite un film aléatoire compris dans les 20 premiÃ¨res pages de rÃ©sultats soit 400 films possible
-                NetworkAccess.searchRandomMovie(randomNumber);
+                NetworkAccess.searchRandomMovie(randomPage);
             }
             // If the user want to filter the movie
             else if(lastActivity.equals("DateActivity")) {
                 filteredMovieReceiver = new FilteredMovieReceiver();
                 LocalBroadcastManager.getInstance(this).registerReceiver(filteredMovieReceiver, new IntentFilter("filteredMovieEvent"));
 
+                // On prépare les paramètres utiles au filtrage
                 id_genre = currentIntent.getIntExtra(EXTRA_GENRE, 12);
                 first_year = currentIntent.getStringExtra(EXTRA_RELEASE_DATE_GTE);
                 last_year = currentIntent.getStringExtra(EXTRA_RELEASE_DATE_LTE);
@@ -94,7 +96,7 @@ public class RandomMovieActivity extends ActionBarActivity {
                 NetworkAccess.searchFilteredMovie(id_genre, first_year, last_year);
             }
             else {
-                System.out.println("Salut toi !!");
+                System.out.println("Erreur !!");
             }
 
         }
