@@ -7,6 +7,10 @@
     <string name="title_activity_random_movie">Le Film</string>
     <string name="spinner_toast">Vous avez sélectionné la période : </string>
     <string name="discover_movie">Découvrez le film</string>
+    <string name="duration">Durée :</string>
+    <string name="notation">Note :</string>
+    <string name="synopsys">Synopsys :</string>
+    <string name="baseURLforImages">https://image.tmdb.org/t/p/original</string>
 
     <string-array name="date_array">
         <item>2010-2015</item>

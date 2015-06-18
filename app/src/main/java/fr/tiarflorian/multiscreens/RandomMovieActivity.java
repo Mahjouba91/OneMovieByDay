@@ -122,9 +122,9 @@ public class RandomMovieActivity extends ActionBarActivity {
             poster = (ImageView) findViewById(R.id.RandomMovie_ImageViewPoster);
 
             title.setText(randomMovie.getTitle());
-            score.setText("Note : "+String.format("%.2f", randomMovie.getVote_average())+"/10");
-            overview.setText("Synopsys : " + randomMovie.getOverview());
-            Ion.with(poster).load("https://image.tmdb.org/t/p/original" + randomMovie.getPoster_path());
+            score.setText(getResources().getString(R.string.notation) + " " + String.format("%.2f", randomMovie.getVote_average())+"/10");
+            overview.setText(getResources().getString(R.string.synopsys) + " " + randomMovie.getOverview());
+            Ion.with(poster).load(getResources().getString(R.string.baseURLforImages) + randomMovie.getPoster_path());
 
             movie_id = randomMovie.getId();
             NetworkAccess.searchMovieById(movie_id);
@@ -156,9 +156,9 @@ public class RandomMovieActivity extends ActionBarActivity {
             poster = (ImageView) findViewById(R.id.RandomMovie_ImageViewPoster);
 
             title.setText(randomMovie.getTitle());
-            score.setText("Note : "+String.format("%.2f", randomMovie.getVote_average()) + "/10");
-            overview.setText("Synopsys : " + randomMovie.getOverview());
-            Ion.with(poster).load("https://image.tmdb.org/t/p/original" + randomMovie.getPoster_path());
+            score.setText(getResources().getString(R.string.notation) + " " + String.format("%.2f", randomMovie.getVote_average()) + "/10");
+            overview.setText(getResources().getString(R.string.synopsys) + " " + randomMovie.getOverview());
+            Ion.with(poster).load(getResources().getString(R.string.baseURLforImages) + randomMovie.getPoster_path());
 
             movie_id = randomMovie.getId();
             NetworkAccess.searchMovieById(movie_id);
@@ -179,7 +179,7 @@ public class RandomMovieActivity extends ActionBarActivity {
 
             runtimeView = (TextView) findViewById(R.id.RandomMovie_Runtime);
 
-            runtimeView.setText("Durée : "+hours+"h"+minutes);
+            runtimeView.setText(getResources().getString(R.string.duration)+" "+hours+"h"+minutes);
         }
     }
 
