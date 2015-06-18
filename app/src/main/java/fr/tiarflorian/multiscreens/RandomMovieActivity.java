@@ -16,6 +16,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.koushikdutta.ion.Ion;
+
+import org.w3c.dom.Text;
+
+import fr.tiarflorian.multiscreens.Model.MovieIdJSON;
 import fr.tiarflorian.multiscreens.Model.MovieJSON;
 import fr.tiarflorian.multiscreens.Model.MovieResultsJSON;
 import fr.tiarflorian.multiscreens.network.NetworkAccess;
@@ -31,10 +35,15 @@ public class RandomMovieActivity extends ActionBarActivity {
 
     private RandomMovieReceiver randomMovieReceiver;
     private FilteredMovieReceiver filteredMovieReceiver;
+    private IdMovieReceiver idMovieReceiver;
+
 
     private TextView title;
     private TextView score;
     private TextView overview;
+    private TextView runtimeView;
+    private TextView releaseDate;
+
     private ImageView poster;
 
     private int id_genre;
@@ -51,24 +60,30 @@ public class RandomMovieActivity extends ActionBarActivity {
 
         Intent currentIntent = getIntent();
         if (currentIntent != null) {
-            // If the user want a random movie
-            System.out.println("WTF");
-            System.out.println(currentIntent.getStringExtra(EXTRA_WHAT_INTENT));
+            // On prépare le receiver quand on cherche un film par son ID
+            idMovieReceiver = new IdMovieReceiver();
+            LocalBroadcastManager.getInstance(this).registerReceiver(idMovieReceiver, new IntentFilter("idMovieEvent"));
 
             final String lastActivity = currentIntent.getStringExtra(EXTRA_WHAT_INTENT);
+
+            // If the user want a random movie
             if (lastActivity.equals("MainActivity")) {
-                System.out.println("Bienvenue dans mon main");
                 randomMovieReceiver = new RandomMovieReceiver();
                 LocalBroadcastManager.getInstance(this).registerReceiver(randomMovieReceiver, new IntentFilter("randomMovieEvent"));
 
-                NetworkAccess.searchRandomMovie();
+                int min = 0; int max = 19;
+                Random rand = new Random();
+                int randomPage = rand.nextInt(max - min + 1) + min;
+
+                // On souhaite un film aléatoire compris dans les 20 premiÃ¨res pages de rÃ©sultats soit 400 films possible
+                NetworkAccess.searchRandomMovie(randomPage);
             }
             // If the user want to filter the movie
             else if(lastActivity.equals("DateActivity")) {
-                System.out.println("Bienvenue dans mon date");
                 filteredMovieReceiver = new FilteredMovieReceiver();
                 LocalBroadcastManager.getInstance(this).registerReceiver(filteredMovieReceiver, new IntentFilter("filteredMovieEvent"));
 
+                // On prépare les paramètres utiles au filtrage
                 id_genre = currentIntent.getIntExtra(EXTRA_GENRE, 12);
                 first_year = currentIntent.getStringExtra(EXTRA_RELEASE_DATE_GTE);
                 last_year = currentIntent.getStringExtra(EXTRA_RELEASE_DATE_LTE);
@@ -77,10 +92,11 @@ public class RandomMovieActivity extends ActionBarActivity {
                 System.out.println(currentIntent.getStringExtra(EXTRA_RELEASE_DATE_GTE));
                 System.out.println(currentIntent.getStringExtra(EXTRA_RELEASE_DATE_LTE));
 
+                // On cherche un film selon nos préférences
                 NetworkAccess.searchFilteredMovie(id_genre, first_year, last_year);
             }
             else {
-                System.out.println("Salut toi !!");
+                System.out.println("Erreur !!");
             }
 
         }
@@ -107,14 +123,17 @@ public class RandomMovieActivity extends ActionBarActivity {
             title = (TextView) findViewById(R.id.RandomMovie_TextViewTitle);
             score = (TextView) findViewById(R.id.RandomMovie_TextViewScore);
             overview = (TextView) findViewById(R.id.RandomMovie_Overview);
+            releaseDate = (TextView) findViewById(R.id.RandomMovie_ReleaseDate);
             poster = (ImageView) findViewById(R.id.RandomMovie_ImageViewPoster);
 
             title.setText(randomMovie.getTitle());
-            score.setText(String.format("%.2f", randomMovie.getVote_average()));
-            overview.setText(randomMovie.getOverview());
-            Ion.with(poster).load("https://image.tmdb.org/t/p/original" + randomMovie.getPoster_path());
+            score.setText(getResources().getString(R.string.notation) + " " + String.format("%.1f", randomMovie.getVote_average())+"/10");
+            overview.setText(getResources().getString(R.string.synopsys) + " " + randomMovie.getOverview());
+            releaseDate.setText(getResources().getString(R.string.release_date) + " " + randomMovie.getReleaseDate());
+            Ion.with(poster).load(getResources().getString(R.string.baseURLforImages) + randomMovie.getPoster_path());
 
             movie_id = randomMovie.getId();
+            NetworkAccess.searchMovieById(movie_id);
 
         }
     }
@@ -140,12 +159,38 @@ public class RandomMovieActivity extends ActionBarActivity {
             title = (TextView) findViewById(R.id.RandomMovie_TextViewTitle);
             score = (TextView) findViewById(R.id.RandomMovie_TextViewScore);
             overview = (TextView) findViewById(R.id.RandomMovie_Overview);
+            releaseDate = (TextView) findViewById(R.id.RandomMovie_ReleaseDate);
             poster = (ImageView) findViewById(R.id.RandomMovie_ImageViewPoster);
 
             title.setText(randomMovie.getTitle());
-            score.setText(String.format("%.2f", randomMovie.getVote_average()));
-            overview.setText(randomMovie.getOverview());
-            Ion.with(poster).load("https://image.tmdb.org/t/p/original" + randomMovie.getPoster_path());
+            score.setText(getResources().getString(R.string.notation) + " " + String.format("%.1f", randomMovie.getVote_average()) + "/10");
+            overview.setText(getResources().getString(R.string.synopsys) + " " + randomMovie.getOverview());
+            releaseDate.setText(getResources().getString(R.string.release_date) + " " + randomMovie.getReleaseDate());
+            Ion.with(poster).load(getResources().getString(R.string.baseURLforImages) + randomMovie.getPoster_path());
+
+            movie_id = randomMovie.getId();
+            NetworkAccess.searchMovieById(movie_id);
+
+        }
+    }
+
+    class IdMovieReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            System.out.println("received a movie according to its ID");
+            MovieIdJSON resultJSON = (MovieIdJSON)intent.getSerializableExtra("idMovieResult");
+
+            System.out.println("FILM RELEASE DATE : "+resultJSON.getReleaseDate());
+
+            // Conversion minutes total en heures + minutes
+            int runtime  = resultJSON.getRuntime();
+            int hours = runtime / 60; //since both are ints, you get an int
+            int minutes = runtime % 60;
+
+            runtimeView = (TextView) findViewById(R.id.RandomMovie_Runtime);
+
+            runtimeView.setText(getResources().getString(R.string.duration)+" "+hours+"h"+minutes);
         }
     }
 

@@ -13,6 +13,7 @@ public class MovieJSON implements Parcelable {
     private String poster_path; // Image du film
     private String overview; // Synopsys
     private int id; // ID du film dans l'API
+    private static String release_date;
 
     public MovieJSON() {
     }
@@ -65,9 +66,18 @@ public class MovieJSON implements Parcelable {
         this.id = id;
     }
 
+    public String getReleaseDate() {
+        return release_date;
+    }
+
+    public void setReleaseDate(String release_date) {
+        this.release_date = release_date;
+    }
+
+
     @Override
     public int describeContents() {
-        return title.hashCode()+poster_path.hashCode()+vote_average.hashCode()+overview.hashCode();
+        return title.hashCode()+poster_path.hashCode()+vote_average.hashCode()+overview.hashCode()+release_date.hashCode();
     }
 
     public void writeToParcel(Parcel out, int flags) {
@@ -75,6 +85,7 @@ public class MovieJSON implements Parcelable {
         out.writeString(poster_path);
         out.writeFloat(vote_average);
         out.writeString(overview);
+        out.writeString(release_date);
     }
 
     public static final Parcelable.Creator<MovieJSON> CREATOR
@@ -93,5 +104,6 @@ public class MovieJSON implements Parcelable {
         poster_path = in.readString();
         vote_average = in.readFloat();
         overview = in.readString();
+        release_date = in.readString();
     }
 }
