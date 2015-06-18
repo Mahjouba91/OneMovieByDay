@@ -42,6 +42,8 @@ public class RandomMovieActivity extends ActionBarActivity {
     private TextView score;
     private TextView overview;
     private TextView runtimeView;
+    private TextView releaseDate;
+
     private ImageView poster;
 
     private int id_genre;
@@ -119,11 +121,13 @@ public class RandomMovieActivity extends ActionBarActivity {
             title = (TextView) findViewById(R.id.RandomMovie_TextViewTitle);
             score = (TextView) findViewById(R.id.RandomMovie_TextViewScore);
             overview = (TextView) findViewById(R.id.RandomMovie_Overview);
+            releaseDate = (TextView) findViewById(R.id.RandomMovie_ReleaseDate);
             poster = (ImageView) findViewById(R.id.RandomMovie_ImageViewPoster);
 
             title.setText(randomMovie.getTitle());
-            score.setText(getResources().getString(R.string.notation) + " " + String.format("%.2f", randomMovie.getVote_average())+"/10");
+            score.setText(getResources().getString(R.string.notation) + " " + String.format("%.1f", randomMovie.getVote_average())+"/10");
             overview.setText(getResources().getString(R.string.synopsys) + " " + randomMovie.getOverview());
+            releaseDate.setText(getResources().getString(R.string.release_date) + " " + randomMovie.getReleaseDate());
             Ion.with(poster).load(getResources().getString(R.string.baseURLforImages) + randomMovie.getPoster_path());
 
             movie_id = randomMovie.getId();
@@ -153,11 +157,13 @@ public class RandomMovieActivity extends ActionBarActivity {
             title = (TextView) findViewById(R.id.RandomMovie_TextViewTitle);
             score = (TextView) findViewById(R.id.RandomMovie_TextViewScore);
             overview = (TextView) findViewById(R.id.RandomMovie_Overview);
+            releaseDate = (TextView) findViewById(R.id.RandomMovie_ReleaseDate);
             poster = (ImageView) findViewById(R.id.RandomMovie_ImageViewPoster);
 
             title.setText(randomMovie.getTitle());
-            score.setText(getResources().getString(R.string.notation) + " " + String.format("%.2f", randomMovie.getVote_average()) + "/10");
+            score.setText(getResources().getString(R.string.notation) + " " + String.format("%.1f", randomMovie.getVote_average()) + "/10");
             overview.setText(getResources().getString(R.string.synopsys) + " " + randomMovie.getOverview());
+            releaseDate.setText(getResources().getString(R.string.release_date) + " " + randomMovie.getReleaseDate());
             Ion.with(poster).load(getResources().getString(R.string.baseURLforImages) + randomMovie.getPoster_path());
 
             movie_id = randomMovie.getId();
@@ -173,6 +179,9 @@ public class RandomMovieActivity extends ActionBarActivity {
             System.out.println("received a movie according to its ID");
             MovieIdJSON resultJSON = (MovieIdJSON)intent.getSerializableExtra("idMovieResult");
 
+            System.out.println("FILM RELEASE DATE : "+resultJSON.getReleaseDate());
+
+            // Conversion minutes total en heures + minutes
             int runtime  = resultJSON.getRuntime();
             int hours = runtime / 60; //since both are ints, you get an int
             int minutes = runtime % 60;

@@ -77,7 +77,7 @@ public class MovieJSON implements Parcelable {
 
     @Override
     public int describeContents() {
-        return title.hashCode()+poster_path.hashCode()+vote_average.hashCode()+overview.hashCode();
+        return title.hashCode()+poster_path.hashCode()+vote_average.hashCode()+overview.hashCode()+release_date.hashCode();
     }
 
     public void writeToParcel(Parcel out, int flags) {
@@ -85,6 +85,7 @@ public class MovieJSON implements Parcelable {
         out.writeString(poster_path);
         out.writeFloat(vote_average);
         out.writeString(overview);
+        out.writeString(release_date);
     }
 
     public static final Parcelable.Creator<MovieJSON> CREATOR
@@ -103,5 +104,6 @@ public class MovieJSON implements Parcelable {
         poster_path = in.readString();
         vote_average = in.readFloat();
         overview = in.readString();
+        release_date = in.readString();
     }
 }
